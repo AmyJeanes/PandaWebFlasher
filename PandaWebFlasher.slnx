@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="PandaWebFlasher.Client/PandaWebFlasher.Client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="PandaWebFlasher.Server/PandaWebFlasher.Server.csproj" Id="ec07647e-61e5-4f36-836e-1f25ebff903b" />
+</Solution>
