@@ -6,6 +6,7 @@ on:
       - renovate/*
     paths:
       - terraform/**
+      - .github/workflows/terraform.yaml
   workflow_dispatch:
     inputs:
       runApply:
@@ -31,6 +32,7 @@ on:
       - main
     paths:
       - terraform/**
+      - .github/workflows/terraform.yaml
 
 jobs:
   terraform:
@@ -38,15 +40,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Azure Login
-        uses: Azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2
+        uses: Azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43 # v3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Setup OpenTofu
-        uses: opentofu/setup-opentofu@9d84900f3238fab8cd84ce47d658d25dd008be2f # v1
+        uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2
 
       - name: Terraform Init
         run: tofu init -backend-config="storage_account_name=abyssterraform" -backend-config="container_name=terraform" -backend-config="key=pandawebflasher.tfstate" -backend-config="access_key=${{ secrets.TERRAFORM_STORAGE_ACCOUNT_KEY }}" -upgrade
