@@ -9,7 +9,24 @@
   "pinDigest": {
     "automerge": true
   },
+  "customManagers": [
+    {
+      // The Docker build installs Node from NodeSource's setup script, which no built-in manager reads
+      "customType": "regex",
+      "description": "Node major installed by the Dockerfile",
+      "managerFilePatterns": ["/(^|/)Dockerfile$/"],
+      "matchStrings": ["deb\\.nodesource\\.com/setup_(?<currentValue>\\d+)\\.x"],
+      "depNameTemplate": "node",
+      "datasourceTemplate": "node-version",
+      "versioningTemplate": "node"
+    }
+  ],
   "packageRules": [
+    {
+      // CI and the Docker build should run the same Node major
+      "groupName": "Node",
+      "matchDepNames": ["node"]
+    },
     {
       // oxlint declares a minimum oxlint-tsgolint version, and they release together
       "groupName": "Oxlint",
